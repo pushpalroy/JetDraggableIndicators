@@ -51,7 +51,7 @@ fun Carousel() {
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         HorizontalPager(
-            modifier = Modifier.height(480.dp),
+            modifier = Modifier.height(280.dp),
             state = state,
         ) { page ->
             Card(

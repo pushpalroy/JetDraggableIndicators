@@ -14,6 +14,7 @@ import androidx.compose.foundation.pager.PagerState
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -36,6 +37,22 @@ import com.appmason.jetdraggableindicators.ui.theme.JetDraggableIndicatorsTheme
 import kotlinx.coroutines.launch
 import kotlin.math.abs
 
+/**
+ * Displays a custom indicator for a pager view, allowing for interactive selection and visualization
+ * of the current page. The indicators are designed to diminish in size for pages further away from
+ * the current selection, providing a focused visual effect.
+ *
+ * The function integrates drag gestures to enable changing the current page by dragging across the indicators,
+ * with visual feedback during drag operations. It also automatically adjusts the scroll position of the indicators
+ * to ensure the current selection is always visible within a constrained viewport size.
+ *
+ * @param modifier The [Modifier] to be applied to the indicator container. Defaults to [Modifier].
+ * @param state The current state of the pager, containing information about the current page and allowing
+ * control over the pager's scroll position.
+ * @param itemCount The total number of pages/items in the pager.
+ * @param onPageSelect A callback function that is invoked when a new page is selected through drag gestures.
+ * The function is passed the index of the selected page.
+ */
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun CustomIndicator(
@@ -61,7 +78,8 @@ fun CustomIndicator(
 
     Box(
         modifier = modifier.background(
-            color = if (enableDrag) Color.White.copy(alpha = 0.1f) else Color.Transparent,
+            color = if (enableDrag) MaterialTheme.colorScheme.onBackground.copy(alpha = 0.1f)
+            else Color.Transparent,
             shape = RoundedCornerShape(50)
         ),
         contentAlignment = Alignment.Center
