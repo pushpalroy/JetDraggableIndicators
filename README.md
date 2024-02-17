@@ -8,10 +8,10 @@ Demo project to create an Instagram like draggable indicators for Image carousel
 
 <table style="width:100%">
   <tr>
-    <th>SSNInputField</th>
+    <th>Custom Draggable Indicator</th>
   </tr>
   <tr>
-    <td><img src = "draggable_indicator.gif" width="100%" alt="DraggableIndicator"/></td>
+    <td><img src = "draggable_indicator.gif" width="100%" alt="Draggable Indicator"/></td>
   </tr>
 </table>
 

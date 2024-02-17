@@ -66,7 +66,7 @@ fun Carousel() {
             }
         }
         Spacer(modifier = Modifier.height(16.dp))
-        CustomIndicator(
+        DraggableIndicator(
             modifier = Modifier,
             state = state,
             itemCount = colorList.size,

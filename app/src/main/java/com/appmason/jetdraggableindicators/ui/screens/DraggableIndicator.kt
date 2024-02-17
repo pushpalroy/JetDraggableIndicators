@@ -55,7 +55,7 @@ import kotlin.math.abs
  */
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun CustomIndicator(
+fun DraggableIndicator(
     modifier: Modifier = Modifier,
     state: PagerState,
     itemCount: Int,
@@ -141,9 +141,9 @@ fun CustomIndicator(
 @OptIn(ExperimentalFoundationApi::class)
 @Preview(showBackground = true)
 @Composable
-fun CustomIndicatorPreview() {
+fun DraggableIndicatorPreview() {
     JetDraggableIndicatorsTheme {
-        CustomIndicator(
+        DraggableIndicator(
             itemCount = 8,
             state = rememberPagerState(
                 initialPage = 0,
