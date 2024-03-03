@@ -12,7 +12,6 @@ import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.pager.PagerState
 import androidx.compose.foundation.pager.rememberPagerState
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
@@ -25,8 +24,9 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.drawBehind
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.hapticfeedback.HapticFeedbackType
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.platform.LocalDensity
@@ -62,17 +62,21 @@ fun DraggableIndicator(
     onPageSelect: (Int) -> Unit,
 ) {
     val haptics = LocalHapticFeedback.current
-    val threshold = with(LocalDensity.current) {
-        ((80.dp / (itemCount.coerceAtLeast(1))) + 10.dp).toPx()
+    val density = LocalDensity.current
+    val threshold = remember {
+        with(density) {
+            ((80.dp / (itemCount.coerceAtLeast(1))) + 10.dp).toPx()
+        }
     }
     val accumulatedDragAmount = remember { mutableFloatStateOf(0f) }
     var enableDrag by remember { mutableStateOf(false) }
     val lazyListState = rememberLazyListState()
     val coroutineScope = rememberCoroutineScope()
+    val currentPage = state.currentPage
 
-    LaunchedEffect(state.currentPage) {
+    LaunchedEffect(currentPage) {
         coroutineScope.launch {
-            lazyListState.animateScrollToItem(index = state.currentPage)
+            lazyListState.animateScrollToItem(index = currentPage)
         }
     }
 
@@ -122,16 +126,18 @@ fun DraggableIndicator(
             verticalAlignment = Alignment.CenterVertically
         ) {
             items(itemCount) { i ->
-                val distance = abs(i - state.currentPage)
-                val size = 10.dp - (1.dp.times(distance)).coerceAtMost(4.dp)
+                val scaleFactor = 1f - (0.1f * abs(i - currentPage)).coerceAtMost(0.4f)
+                val color = if (i == currentPage) Color(0xFF03A9F4) else Color.Gray
                 Box(
                     modifier = Modifier
-                        .size(size)
-                        .clip(CircleShape)
-                        .align(Alignment.Center)
-                        .background(
-                            color = if (i == state.currentPage) Color(0xFF03A9F4) else Color.Gray
-                        )
+                        .size(10.dp)
+                        .graphicsLayer {
+                            scaleX = scaleFactor
+                            scaleY = scaleFactor
+                        }
+                        .drawBehind {
+                            drawCircle(color)
+                        }
                 )
             }
         }
