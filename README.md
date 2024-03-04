@@ -1,8 +1,16 @@
 ## Compose Custom Draggable Indicators
 
-Demo project to create an Instagram like draggable indicators for Image carousel with diminishing effect.
+Demo project to create Instagram-like draggable indicators for Image carousel with diminishing effect.
 
 > This is not a library. This is a demo project to experiment and try out a functionality.
+
+### Blog post
+The blog post explaining the source code can be found here:
+
+[Create Instagram-like Long Press and Draggable Carousel Indicators in Jetpack Compose](https://blog.pushpalroy.com/create-instagram-like-long-press-and-draggable-carousel-indicators-in-jetpack-compose)
+
+The blog is also available on Medium [here](https://medium.com/@pushpalroy2007/create-instagram-like-long-press-and-draggable-carousel-indicators-in-jetpack-compose-ce16fa75bc1e).
+
 
 ### Demo
 
